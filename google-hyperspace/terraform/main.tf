@@ -43,7 +43,7 @@ resource "google_compute_instance" "hyperspace-be" {
   }
   count = 1
   lifecycle = {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }
 
@@ -65,7 +65,7 @@ resource "google_compute_instance" "hyperspace-fe" {
   }
   count = 3
   lifecycle = {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }
 
@@ -75,6 +75,7 @@ resource "google_compute_instance" "hyperspace-fe" {
 resource "google_compute_firewall" "fwrule" {
     name = "hyperspace-web"
     network = "default"
+    source_ranges = ["10.241.0.0/16"]
     allow {
         protocol = "tcp"
         ports = ["80"]
